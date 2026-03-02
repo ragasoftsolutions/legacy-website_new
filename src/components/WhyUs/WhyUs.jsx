@@ -60,20 +60,13 @@ export default function WhyUs() {
       <div className="max-w-[1320px] mx-auto px-6 lg:px-10 relative z-10">
 
         {/* Header row */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-20 gap-8">
-          <div>
-            <span className="fade-up section-label text-gold">Why Us</span>
-            <h2 className="fade-up section-heading text-white max-w-[520px]" style={{ transitionDelay: '0.1s' }}>
-              Why Choose{' '}
-              <span className="text-gold italic">Legacy Migration</span>{' '}
-              Advisory?
-            </h2>
-          </div>
-          {/* Stat callout */}
-          <div className="fade-up border-l-2 border-gold pl-8" style={{ transitionDelay: '0.2s' }}>
-            <div className="font-serif text-5xl text-gold font-light leading-none mb-2">98%</div>
-            <div className="text-[11px] tracking-[3px] text-white/50 uppercase">Client Satisfaction Rate</div>
-          </div>
+        <div className="text-center mb-20">
+          <span className="fade-up section-label text-sm text-gold" style={{ justifyContent: 'center' }}>Why Us</span>
+          <h2 className="fade-up section-heading text-white mx-auto" style={{ transitionDelay: '0.1s' }}>
+            Why Choose{' '}
+            <span className="text-gold italic">Legacy Migration</span>{' '}
+            Advisory?
+          </h2>
         </div>
 
         {/* Two-column flowing content */}
@@ -92,7 +85,7 @@ export default function WhyUs() {
                 </div>
                 <div>
                   <h3 className="font-serif text-white text-2xl font-semibold mb-3">{r.title}</h3>
-                  <p className="text-white/55 text-[13.5px] leading-[1.85]">{r.body}</p>
+                  <p className="text-white/55 text-base leading-[1.85]">{r.body}</p>
                 </div>
               </div>
             ))}
@@ -104,7 +97,7 @@ export default function WhyUs() {
             <div className="fade-up relative mb-2 overflow-hidden" style={{ transitionDelay: '0.1s' }}>
               <div
                 className="w-full h-48 bg-cover bg-center opacity-40"
-                style={{ backgroundImage: `url(https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80)` }}
+                style={{ backgroundImage: `url(/whyUs.png)` }}
               />
               <div className="absolute inset-0 bg-gradient-to-b from-forest-deeper via-transparent to-forest-deeper" />
             </div>
@@ -120,7 +113,7 @@ export default function WhyUs() {
                 </div>
                 <div>
                   <h3 className="font-serif text-white text-2xl font-semibold mb-3">{r.title}</h3>
-                  <p className="text-white/55 text-[13.5px] leading-[1.85]">{r.body}</p>
+                  <p className="text-white/55 text-base leading-[1.85]">{r.body}</p>
                 </div>
               </div>
             ))}

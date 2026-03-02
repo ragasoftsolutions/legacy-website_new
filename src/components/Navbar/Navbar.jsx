@@ -96,7 +96,7 @@ export default function Navbar() {
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                className="text-[14px] font-medium tracking-wider text-forest hover:text-gold transition-colors duration-200"
+                className="text-[16px] font-medium tracking-wider text-forest hover:text-gold transition-colors duration-200"
               >
                 {item}
               </a>
@@ -106,7 +106,7 @@ export default function Navbar() {
             <div ref={megaRef} className="relative">
               <button
                 onMouseEnter={() => setMegaOpen((p) => !p)}
-                className="flex items-center gap-1.5 text-[14px] font-medium tracking-wider text-forest hover:text-gold transition-colors duration-200"
+                className="flex items-center gap-1.5 text-[16px] font-medium tracking-wider text-forest hover:text-gold transition-colors duration-200"
               >
                 Immigration Types
                 <svg
@@ -145,7 +145,7 @@ export default function Navbar() {
 
             <a
               href="#contact"
-              className="text-[14px] font-medium tracking-wider text-forest hover:text-gold transition-colors duration-200"
+              className="text-[16px] font-medium tracking-wider text-forest hover:text-gold transition-colors duration-200"
             >
               Contact
             </a>
@@ -153,7 +153,7 @@ export default function Navbar() {
             {/* Pay Now */}
             <a
               href="#contact"
-              className="bg-gold text-forest-deeper text-[11px] font-bold tracking-[2px] uppercase px-5 py-2.5 rounded-full hover:bg-gold-light transition-colors duration-200"
+              className="btn-shine bg-gold text-forest-deeper text-[11px] font-bold tracking-[2px] uppercase px-5 py-2.5 rounded-full transition-all duration-300 hover:bg-gold-light hover:scale-105 hover:shadow-lg active:scale-95"
             >
               Free Assessment
             </a>
@@ -218,7 +218,7 @@ export default function Navbar() {
 
           <a
             href="#contact"
-            className="mt-6 bg-gold text-forest-deeper text-[11px] font-bold tracking-[3px] uppercase py-4 text-center"
+            className="mt-6 bg-gold text-forest-deeper text-[11px] font-bold tracking-[3px] uppercase py-4 text-center transition-all duration-300 hover:bg-gold-light active:scale-95"
           >
             Free Assessment
           </a>

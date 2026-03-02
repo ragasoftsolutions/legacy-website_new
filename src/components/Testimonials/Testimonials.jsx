@@ -40,20 +40,12 @@ export default function Testimonials() {
       <div className="max-w-[1320px] mx-auto px-6 lg:px-10">
 
         {/* Header */}
-        <div className="grid lg:grid-cols-2 gap-12 items-end mb-20">
-          <div>
-            <span className="fade-up section-label">Our Testimonials</span>
-            <h2 className="fade-up section-heading text-forest-deeper" style={{ transitionDelay: '0.1s' }}>
-              What People Say About{' '}
-              <span className="text-gold italic">Our Services</span>
-            </h2>
-          </div>
-          <div className="fade-up" style={{ transitionDelay: '0.2s' }}>
-            {/* Big quote mark as decoration */}
-            <div className="font-serif text-[160px] text-gold/12 leading-none select-none hidden lg:block text-right" aria-hidden>
-              "
-            </div>
-          </div>
+        <div className="text-center mb-20">
+          <span className="fade-up section-label text-sm" style={{ justifyContent: 'center' }}>Our Testimonials</span>
+          <h2 className="fade-up section-heading text-forest-deeper mx-auto" style={{ transitionDelay: '0.1s' }}>
+            What People Say About{' '}
+            <span className="text-gold italic">Our Services</span>
+          </h2>
         </div>
 
         {/* Testimonials — editorial vertical layout separated by lines */}
@@ -70,7 +62,7 @@ export default function Testimonials() {
                   <span className="font-serif text-gold text-xl font-semibold">{t.initials}</span>
                 </div>
                 <div>
-                  <div className="font-semibold text-forest-deeper text-[14px] mb-0.5">{t.name}</div>
+                  <div className="font-semibold text-forest-deeper text-[16px] mb-0.5">{t.name}</div>
                   <div className="text-gold text-[11px] tracking-wider mb-1">{t.country}</div>
                   <div className="text-forest/40 text-[11px]">{t.date}</div>
                 </div>

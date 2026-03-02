@@ -5,25 +5,25 @@ const countries = [
     name: 'Australia',
     desc: 'General Skilled Migration, Business Innovation & Investment',
     flag: '🇦🇺',
-    img: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=800&q=80',
+    img: '/countries/australia.png',
   },
   {
     name: 'Canada',
     desc: 'Express Entry, Provincial Nominee Programs, Family Sponsorship',
     flag: '🇨🇦',
-    img: 'https://images.unsplash.com/photo-1517935706615-2717063c2225?w=800&q=80',
+    img: '/countries/canada.png',
   },
   {
     name: 'Poland',
     desc: 'Work Permits, Residency by Investment, EU Pathways',
     flag: '🇵🇱',
-    img: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80',
+    img: '/countries/poland.png',
   },
   {
     name: 'Portugal',
     desc: 'Golden Visa, D7 Passive Income Visa, NHR Tax Regime',
     flag: '🇵🇹',
-    img: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80',
+    img: '/countries/portugal.png',
   },
 ]
 
@@ -44,13 +44,13 @@ export default function Countries() {
 
         {/* Header */}
         <div className="text-center mb-16">
-          <span className="fade-up section-label" style={{ justifyContent: 'center' }}>
+          <span className="fade-up section-label text-sm" style={{ justifyContent: 'center' }}>
             Countries We Offer
           </span>
           <h2 className="fade-up section-heading text-forest-deeper mb-3" style={{ transitionDelay: '0.1s' }}>
             Countries We <span className="text-gold italic">Support</span> For Immigration
           </h2>
-          <p className="fade-up text-forest/55 text-[14px] tracking-wider" style={{ transitionDelay: '0.2s' }}>
+          <p className="fade-up text-forest/55 text-[16px] tracking-wider" style={{ transitionDelay: '0.2s' }}>
             Select A Destination Of Your Choice
           </p>
         </div>
@@ -83,7 +83,7 @@ export default function Countries() {
                 <h3 className="font-serif text-forest-deeper text-4xl lg:text-5xl font-semibold mb-3 leading-tight group-hover:text-forest transition-colors">
                   {c.name}
                 </h3>
-                <p className="text-forest/60 text-[13px] leading-relaxed mb-6 max-w-[400px]">
+                <p className={`text-forest/60 text-sm leading-relaxed mb-6 max-w-[400px] ${i % 2 !== 0 ? 'lg:ml-auto' : ''}`}>
                   {c.desc}
                 </p>
                 <div>

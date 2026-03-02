@@ -43,7 +43,7 @@ export default function About() {
               {/* Gold frame offset */}
               <div
                 className="absolute border border-gold/40 pointer-events-none"
-                style={{ inset: '-14px 14px 14px -14px' }}
+                style={{ inset: '-16px 16px 16px -16px' }}
               />
             </div>
 
@@ -68,7 +68,7 @@ export default function About() {
               Welcome To <span className="text-gold italic">Legacy Migration</span> Advisory
             </h2>
 
-            <p className="fade-up text-forest/70 text-[14px] leading-[1.9] mb-4" style={{ transitionDelay: '0.3s' }}>
+            <p className="fade-up text-forest/70 text-[16px] leading-[1.9] mb-4" style={{ transitionDelay: '0.3s' }}>
               At Legacy Migration Advisory, we help turn your dream of moving abroad into reality.
               We are a professional migration consultancy firm offering complete, end-to-end immigration
               solutions for individuals and families who wish to relocate to a new country.
@@ -83,13 +83,13 @@ export default function About() {
                     <span className="mt-1 w-5 h-5 rounded-full border border-gold/50 flex items-center justify-center flex-shrink-0">
                       <span className="text-gold text-[10px]">✓</span>
                     </span>
-                    <span className="text-forest/75 text-[14px] leading-relaxed">{g}</span>
+                    <span className="text-forest/75 text-[16px] leading-relaxed">{g}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <p className="fade-up text-forest/70 text-[14px] leading-[1.9] mb-8" style={{ transitionDelay: '0.4s' }}>
+            <p className="fade-up text-forest/70 text-[16px] leading-[1.9] mb-8" style={{ transitionDelay: '0.4s' }}>
               With a team of experienced and knowledgeable immigration consultants in Dubai and Abu Dhabi,
               we guide you step-by-step throughout your entire migration journey.
             </p>

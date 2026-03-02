@@ -7,7 +7,7 @@ const slides = [
     subtitle: 'From consultation to application, we provide a smooth, efficient process tailored to your relocation goals.',
     cta: 'Learn More',
     // Unsplash: Professional business consultation meeting
-    bg: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1800&q=80',
+    bg: '/hero/moveabroad.png',
   },
   {
     label: 'Seamless Relocation',
@@ -15,7 +15,7 @@ const slides = [
     subtitle: 'We take the hassle out of immigration with personalized guidance and expert handling of your application.',
     cta: 'Start Your Journey',
     // Unsplash: Passport with documents and stamps
-    bg: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1800&q=80',
+    bg: '/hero/immigrationservices.png',
   },
   {
     label: 'Global Opportunities',
@@ -23,7 +23,7 @@ const slides = [
     subtitle: 'Expert immigration solutions designed to help you live, work, and settle abroad with confidence.',
     cta: 'Get Consultation',
     // Unsplash: Global business cityscape
-    bg: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1800&q=80',
+    bg: '/hero/GlobalOpportunities.png',
   },
 ]
 
@@ -87,7 +87,7 @@ export default function Hero() {
                   {slide.title}
                 </h1>
 
-                <p className="slide-sub text-white/80 text-[15px] leading-[1.85] mb-10 max-w-[500px] font-light">
+                <p className="slide-sub text-white/80 text-base leading-[1.85] mb-10 max-w-[500px] font-light">
                   {slide.subtitle}
                 </p>
 
