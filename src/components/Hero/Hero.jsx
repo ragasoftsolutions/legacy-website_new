@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const slides = [
   {
@@ -55,9 +56,12 @@ export default function Hero() {
           className={`hero-slide ${i === current ? 'active' : ''}`}
         >
           {/* Background Image */}
-          <div
+          <motion.div
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${slide.bg})` }}
+            initial={{ scale: 1 }}
+            animate={i === current ? { scale: 1.1 } : { scale: 1 }}
+            transition={{ duration: 8, ease: "linear" }}
           />
           {/* Dark green overlay - matching reference */}
           <div
@@ -73,32 +77,52 @@ export default function Hero() {
               <div className="max-w-[620px]">
 
                 {/* Pin icon like reference */}
-                <div className="slide-label flex items-center gap-2 mb-5">
+                <motion.div 
+                  className="slide-label flex items-center gap-2 mb-5"
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={i === current ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                >
                   <svg className="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                   </svg>
                   <span className="text-[11px] tracking-[5px] text-gold uppercase font-semibold">
                     {slide.label}
                   </span>
-                </div>
+                </motion.div>
 
-                <h1 className="slide-title font-serif text-white leading-[1.08] mb-6"
-                    style={{ fontSize: 'clamp(42px, 6vw, 76px)', fontWeight: 700 }}>
+                <motion.h1 
+                  className="slide-title font-serif text-white leading-[1.08] mb-6"
+                  style={{ fontSize: 'clamp(42px, 6vw, 76px)', fontWeight: 700 }}
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={i === current ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                  transition={{ duration: 0.7, delay: 0.3 }}
+                >
                   {slide.title}
-                </h1>
+                </motion.h1>
 
-                <p className="slide-sub text-white/80 text-base leading-[1.85] mb-10 max-w-[500px] font-light">
+                <motion.p 
+                  className="slide-sub text-white/80 text-base leading-[1.85] mb-10 max-w-[500px] font-light"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={i === current ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  transition={{ duration: 0.7, delay: 0.5 }}
+                >
                   {slide.subtitle}
-                </p>
+                </motion.p>
 
-                <div className="slide-cta">
+                <motion.div 
+                  className="slide-cta"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={i === current ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  transition={{ duration: 0.6, delay: 0.7 }}
+                >
                   <button className="inline-flex items-center gap-3 bg-gold/90 hover:bg-gold text-forest-deeper font-semibold text-[13px] tracking-wider px-8 py-4 rounded-full transition-all duration-300 group">
                     {slide.cta}
                     <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                     </svg>
                   </button>
-                </div>
+                </motion.div>
               </div>
             </div>
           </div>
@@ -106,7 +130,12 @@ export default function Hero() {
       ))}
 
       {/* Dots */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 z-20">
+      <motion.div 
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 z-20"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 1 }}
+      >
         {slides.map((_, i) => (
           <button
             key={i}
@@ -119,20 +148,30 @@ export default function Hero() {
             aria-label={`Slide ${i + 1}`}
           />
         ))}
-      </div>
+      </motion.div>
 
       {/* Slide counter */}
-      <div className="absolute bottom-8 right-10 z-20 hidden lg:flex items-baseline gap-1">
+      <motion.div 
+        className="absolute bottom-8 right-10 z-20 hidden lg:flex items-baseline gap-1"
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, delay: 1.1 }}
+      >
         <span className="font-serif text-4xl text-gold font-light leading-none">{String(current + 1).padStart(2, '0')}</span>
         <span className="text-white/30 text-sm mx-1">/</span>
         <span className="text-white/50 text-sm">{String(slides.length).padStart(2, '0')}</span>
-      </div>
+      </motion.div>
 
       {/* Scroll cue */}
-      <div className="absolute bottom-0 left-10 hidden lg:flex flex-col items-center gap-2 z-20 pb-6">
+      <motion.div 
+        className="absolute bottom-0 left-10 hidden lg:flex flex-col items-center gap-2 z-20 pb-6"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 1.2 }}
+      >
         <div className="w-px h-16 bg-gradient-to-b from-gold/50 to-transparent animate-pulse" />
         <span className="text-[9px] tracking-[4px] text-gold/60 uppercase" style={{ writingMode: 'vertical-rl' }}>Scroll</span>
-      </div>
+      </motion.div>
     </section>
   )
 }
