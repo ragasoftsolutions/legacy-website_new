@@ -74,7 +74,7 @@ export default function Hero() {
           {/* Content */}
           <div className="relative z-10 h-full flex items-center">
             <div className="max-w-[1320px] mx-auto px-6 lg:px-10 w-full">
-              <div className="max-w-[620px]">
+              <div className="max-w-[750px]">
 
                 {/* Pin icon like reference */}
                 <motion.div 
