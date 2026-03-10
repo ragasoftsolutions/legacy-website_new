@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 const immigrationData = {
   'Citizenship By Investment': [
-    { label: 'Dominica Citizenship', href: '#' },
-    { label: 'Saint Kitts & Nevis Citizenship', href: '#' },
-    { label: 'Vanuatu Citizenship', href: '#' },
-    { label: 'Saint Lucia Citizenship', href: '#' },
+    { label: 'Dominica Citizenship', href: '/citizenship/dominica' },
+    { label: 'Saint Kitts & Nevis Citizenship', href: '/citizenship/saint-kitts-nevis' },
+    { label: 'Vanuatu Citizenship', href: '/citizenship/vanuatu' },
+    { label: 'Saint Lucia Citizenship', href: '/citizenship/saint-lucia' },
   ],
   'Residency By Investment': [
     { label: 'Spain', href: '#' },
@@ -52,6 +52,16 @@ export default function Navbar() {
   const [mobileSection, setMobileSection] = useState(null)
   const megaRef = useRef(null)
   const location = useLocation()
+  const navigate = useNavigate()
+
+  const handleSectionNav = (sectionId) => {
+    setMobileOpen(false)
+    if (location.pathname === '/') {
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' })
+    } else {
+      navigate('/', { state: { scrollTo: sectionId } })
+    }
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30)
@@ -92,14 +102,26 @@ export default function Navbar() {
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-6">
-            {['Home', 'About', 'Countries', 'Testimonials'].map((item) => (
-              <a
+            <Link
+              to="/"
+              className="text-sm font-medium tracking-wider text-forest hover:text-gold transition-colors duration-200"
+            >
+              Home
+            </Link>
+            <Link
+              to="/about"
+              className="text-sm font-medium tracking-wider text-forest hover:text-gold transition-colors duration-200"
+            >
+              About
+            </Link>
+            {['Countries', 'Testimonials'].map((item) => (
+              <button
                 key={item}
-                href={`#${item.toLowerCase()}`}
+                onClick={() => handleSectionNav(item.toLowerCase())}
                 className="text-sm font-medium tracking-wider text-forest hover:text-gold transition-colors duration-200"
               >
                 {item}
-              </a>
+              </button>
             ))}
 
             {/* Immigration Types Mega */}
@@ -130,46 +152,46 @@ export default function Navbar() {
                       {cat}
                     </h4>
                     {items.map((item) => (
-                      <a
+                      <Link
                         key={item.label}
-                        href={item.href}
+                        to={item.href}
                         className="block py-1.5 text-[12px] text-forest/70 hover:text-gold hover:pl-2 transition-all duration-200"
                       >
                         {item.label}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 ))}
               </div>
             </div>
 
-            <a
-              href="#contact"
+            <Link
+              to="/contact"
               className="text-sm font-medium tracking-wider text-forest hover:text-gold transition-colors duration-200"
             >
               Contact
-            </a>
+            </Link>
           </nav>
 
           {/* Phone Number & Pay Now */}
           <div className="hidden lg:flex items-center gap-6">
-            <a
-              href="#contact"
+            <Link
+              to="/pay-now"
               className="btn-shine bg-gold text-forest-deeper text-[11px] font-bold tracking-[2px] uppercase px-5 py-2.5 rounded-full transition-all duration-300 hover:bg-gold-light hover:scale-105 hover:shadow-lg active:scale-95"
             >
               Pay Now
-            </a>
+            </Link>
 
             <a
-              href="tel:+971565586006"
+              href="tel:+97142824305"
               className="flex items-center gap-2 text-forest hover:text-gold transition-colors duration-200"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
               </svg>
               <div className="flex flex-col">
-                <span className="text-[9px] font-semibold tracking-[1px] uppercase opacity-70">Phone:</span>
-                <span className="text-[13px] font-bold tracking-wide">+971-5655-86006</span>
+                <span className="text-[9px] font-semibold tracking-[1px] uppercase opacity-70">Landline:</span>
+                <span className="text-[13px] font-bold tracking-wide">+971 42824305</span>
               </div>
             </a>
           </div>
@@ -194,16 +216,18 @@ export default function Navbar() {
         style={{ top: 72 }}
       >
         <div className="p-6 flex flex-col gap-0 overflow-y-auto h-full">
-          {['Home', 'About', 'Countries', 'Testimonials', 'Contact'].map((item) => (
-            <a
+          <Link to="/" className="block py-4 text-[13px] font-medium tracking-widest text-forest-deeper uppercase border-b border-black/8" onClick={() => setMobileOpen(false)}>Home</Link>
+          <Link to="/about" className="block py-4 text-[13px] font-medium tracking-widest text-forest-deeper uppercase border-b border-black/8" onClick={() => setMobileOpen(false)}>About</Link>
+          {['Countries', 'Testimonials'].map((item) => (
+            <button
               key={item}
-              href={`#${item.toLowerCase()}`}
-              className="block py-4 text-[13px] font-medium tracking-widest text-forest-deeper uppercase border-b border-black/8"
-              onClick={() => setMobileOpen(false)}
+              onClick={() => handleSectionNav(item.toLowerCase())}
+              className="w-full text-left block py-4 text-[13px] font-medium tracking-widest text-forest-deeper uppercase border-b border-black/8"
             >
               {item}
-            </a>
+            </button>
           ))}
+          <Link to="/contact" className="block py-4 text-[13px] font-medium tracking-widest text-forest-deeper uppercase border-b border-black/8" onClick={() => setMobileOpen(false)}>Contact</Link>
 
           {/* Immigration accordion */}
           {Object.entries(immigrationData).map(([cat, items]) => (
@@ -218,36 +242,37 @@ export default function Navbar() {
               {mobileSection === cat && (
                 <div className="pl-4 py-2 border-b border-black/8">
                   {items.map((item) => (
-                    <a
+                    <Link
                       key={item.label}
-                      href={item.href}
+                      to={item.href}
                       className="block py-2 text-[12px] text-forest/70"
                       onClick={() => setMobileOpen(false)}
                     >
                       {item.label}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               )}
             </div>
           ))}
 
-          <a
-            href="#contact"
+          <Link
+            to="/pay-now"
             className="mt-6 bg-gold text-forest-deeper text-[11px] font-bold tracking-[3px] uppercase py-4 text-center transition-all duration-300 hover:bg-gold-light active:scale-95"
+            onClick={() => setMobileOpen(false)}
           >
             Pay Now
-          </a>
+          </Link>
 
           <a
-            href="tel:+971565586006"
+            href="tel:+97142824305"
             className="mt-2 flex items-center justify-center gap-2 py-4 text-[13px] font-semibold text-forest border-b border-black/8"
             onClick={() => setMobileOpen(false)}
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
             </svg>
-            +971-5655-86006
+            +971 42824305
           </a>
         </div>
       </div>

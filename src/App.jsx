@@ -1,73 +1,32 @@
-import React, { useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
-import Navbar from './components/Navbar/Navbar'
-import Hero from './components/Hero/Hero'
-import About from './components/About/About'
-import Services from './components/Services/Services'
-import WhyUs from './components/WhyUs/WhyUs'
-import Countries from './components/Countries/Countries'
-import Testimonials from './components/Testimonials/Testimonials'
-import CTA from './components/CTA/CTA'
-import Footer from './components/Footer/Footer'
-import PageLoader from './components/PageLoader/PageLoader'
-import ScrollReveal from './components/ScrollReveal/ScrollReveal'
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Layout from './components/Layout/Layout'
+import HomePage from './pages/HomePage'
+import AboutPage from './pages/AboutPage'
+import ContactPage from './pages/ContactPage'
+import PayNowPage from './pages/PayNowPage'
+import {
+  DominicaCitizenshipPage,
+  SaintKittsNevisCitizenshipPage,
+  VanuatuCitizenshipPage,
+  SaintLuciaCitizenshipPage,
+} from './pages/citizenship'
 
 export default function App() {
-  const [loading, setLoading] = useState(true)
-
   return (
-    <>
-      {/* Page Loader */}
-      <PageLoader onComplete={() => setLoading(false)} />
-
-      {/* Main content — fades in after loader exits */}
-      <AnimatePresence>
-        {!loading && (
-          <motion.div
-            key="content"
-            className="min-h-screen"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-          >
-            <Navbar />
-            <main>
-              {/* Hero has its own slider animation, small nudge only */}
-              <ScrollReveal variant="fade" duration={1.0} amount={0.05}>
-                <Hero />
-              </ScrollReveal>
-
-              <ScrollReveal variant="fadeUp" delay={0.05}>
-                <About />
-              </ScrollReveal>
-
-              <ScrollReveal variant="fadeUp" delay={0.05}>
-                <Services />
-              </ScrollReveal>
-
-              <ScrollReveal variant="fadeUp" delay={0.05}>
-                <WhyUs />
-              </ScrollReveal>
-
-              <ScrollReveal variant="fadeUp" delay={0.05}>
-                <Countries />
-              </ScrollReveal>
-
-              <ScrollReveal variant="fadeUp" delay={0.05}>
-                <Testimonials />
-              </ScrollReveal>
-
-              <ScrollReveal variant="fadeUp"  delay={0.05}>
-                <CTA />
-              </ScrollReveal>
-            </main>
-
-            <ScrollReveal variant="fadeUp" delay={0.05}>
-              <Footer />
-            </ScrollReveal>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route element={<Layout />}>
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/pay-now" element={<PayNowPage />} />
+        
+        {/* Citizenship by Investment Routes */}
+        <Route path="/citizenship/dominica" element={<DominicaCitizenshipPage />} />
+        <Route path="/citizenship/saint-kitts-nevis" element={<SaintKittsNevisCitizenshipPage />} />
+        <Route path="/citizenship/vanuatu" element={<VanuatuCitizenshipPage />} />
+        <Route path="/citizenship/saint-lucia" element={<SaintLuciaCitizenshipPage />} />
+      </Route>
+    </Routes>
   )
 }
