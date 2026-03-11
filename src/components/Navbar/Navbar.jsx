@@ -9,41 +9,29 @@ const immigrationData = {
     { label: 'Saint Lucia Citizenship', href: '/citizenship/saint-lucia' },
   ],
   'Residency By Investment': [
-    { label: 'Spain', href: '#' },
-    { label: 'Greece', href: '#' },
-    { label: 'Portugal', href: '#' },
-    { label: 'USA', href: '#' },
-    { label: 'Australia', href: '#' },
-    { label: 'Poland', href: '#' },
-    { label: 'United Kingdom', href: '#' },
+    { label: 'Spain', href: '/residency/spain' },
+    { label: 'Greece', href: '/residency/greece' },
+    { label: 'Portugal', href: '/residency/portugal' },
+    { label: 'USA', href: '/residency/usa' },
+    { label: 'Australia', href: '/residency/australia' },
+    { label: 'Poland', href: '/residency/poland' },
+    { label: 'United Kingdom', href: '/residency/uk' },
+  ],
+  'United Kingdom': [
+    { label: 'UK Skilled Worker Visa', href: '/work-visa/uk-skilled-worker-visa' },
+    { label: 'UK Creative Worker Visa', href: '/work-visa/uk-creative-worker-visa' },
+    { label: 'UK TIER 5', href: '/work-visa/uk-tier-5' },
+    { label: 'UK Self Sponsorship Programs', href: '/work-visa/uk-self-sponsorship-programs' },
+    { label: 'UK Innovator Visa', href: '/work-visa/uk-innovator-visa' },
   ],
   'Work Visa': [
-    { label: 'UK Skilled Worker Visa', href: '#' },
-    { label: 'UK Creative Worker Visa', href: '#' },
-    { label: 'UK TIER 5', href: '#' },
-    { label: 'UK Self Sponsorship Programs', href: '#' },
-    { label: 'UK Innovator Visa', href: '#' },
-    { label: 'Ireland Work Visa', href: '#' },
-    { label: 'Switzerland Work Permit', href: '#' },
-    { label: 'Czech Republic Work Visa', href: '#' },
+    { label: 'Ireland Work Visa', href: '/work-visa/ireland-work-visa' },
+    { label: 'Switzerland Work Permit', href: '/work-visa/switzerland-work-permit' },
+    { label: 'Czech Republic Work Visa', href: '/work-visa/czech-republic-work-visa' },
   ],
 }
 
-const TreeIcon = ({ className = 'w-10 h-10' }) => (
-  <svg className={className} viewBox="0 0 100 100" fill="none">
-    <circle cx="50" cy="35" r="22" fill="none" stroke="#C9A84C" strokeWidth="2" />
-    <circle cx="35" cy="28" r="15" fill="none" stroke="#C9A84C" strokeWidth="2" />
-    <circle cx="65" cy="28" r="15" fill="none" stroke="#C9A84C" strokeWidth="2" />
-    <circle cx="50" cy="20" r="16" fill="#C9A84C" fillOpacity="0.2" />
-    <circle cx="38" cy="32" r="14" fill="#C9A84C" fillOpacity="0.2" />
-    <circle cx="62" cy="32" r="14" fill="#C9A84C" fillOpacity="0.2" />
-    <circle cx="50" cy="38" r="18" fill="#C9A84C" fillOpacity="0.25" />
-    <line x1="50" y1="57" x2="50" y2="90" stroke="#C9A84C" strokeWidth="3.5" />
-    <line x1="28" y1="90" x2="72" y2="90" stroke="#C9A84C" strokeWidth="3.5" />
-    <line x1="50" y1="72" x2="34" y2="84" stroke="#C9A84C" strokeWidth="2.5" />
-    <line x1="50" y1="72" x2="66" y2="84" stroke="#C9A84C" strokeWidth="2.5" />
-  </svg>
-)
+
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -141,7 +129,7 @@ export default function Navbar() {
 
               {/* Mega Dropdown */}
               <div
-                className={`absolute top-[calc(100%+20px)] left-1/2 -translate-x-1/2 bg-white border border-black/8 shadow-2xl min-w-[720px] p-8 grid grid-cols-3 gap-8 transition-all duration-250 ${
+                className={`absolute top-[calc(100%+20px)] left-1/2 -translate-x-1/2 bg-white border border-black/8 shadow-2xl min-w-[900px] p-8 grid grid-cols-4 gap-8 transition-all duration-250 ${
                   megaOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-2'
                 }`}
                 style={{ boxShadow: '0 24px 60px rgba(0,0,0,0.12)' }}

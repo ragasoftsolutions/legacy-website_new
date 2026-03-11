@@ -11,6 +11,8 @@ import {
   VanuatuCitizenshipPage,
   SaintLuciaCitizenshipPage,
 } from './pages/citizenship'
+import { ResidencyPage } from './pages/residency'
+import { WorkVisaPage } from './pages/work-visa'
 
 export default function App() {
   return (
@@ -26,6 +28,12 @@ export default function App() {
         <Route path="/citizenship/saint-kitts-nevis" element={<SaintKittsNevisCitizenshipPage />} />
         <Route path="/citizenship/vanuatu" element={<VanuatuCitizenshipPage />} />
         <Route path="/citizenship/saint-lucia" element={<SaintLuciaCitizenshipPage />} />
+        
+        {/* Residency by Investment Routes - Dynamic route for all countries */}
+        <Route path="/residency/:country" element={<ResidencyPage />} />
+        
+        {/* Work Visa Routes - Dynamic route for all programs */}
+        <Route path="/work-visa/:program" element={<WorkVisaPage />} />
       </Route>
     </Routes>
   )

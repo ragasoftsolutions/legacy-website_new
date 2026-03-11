@@ -5,6 +5,7 @@ import PageBanner from '../../components/PageBanner/PageBanner'
 import ScrollReveal from '../../components/ScrollReveal/ScrollReveal'
 import CitizenshipPrograms from '../../components/CitizenshipPrograms/CitizenshipPrograms'
 import ExploreWorldCTA from '../../components/ExploreWorldCTA/ExploreWorldCTA'
+import ResidencyPrograms from '../../components/ResidencyPrograms/ResidencyPrograms'
 
 const BANNER_IMG = 'https://images.unsplash.com/photo-1589519160732-57fc498494f8?auto=format&fit=crop&w=1920&q=80'
 
@@ -309,7 +310,7 @@ export default function SaintLuciaCitizenshipPage() {
       </section>
 
       {/* Citizenship Programs Section */}
-      <CitizenshipPrograms />
+      <ResidencyPrograms />
 
       {/* CTA Section */}
       <ExploreWorldCTA />
