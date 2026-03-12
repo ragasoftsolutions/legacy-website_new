@@ -3,6 +3,8 @@ import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import PageBanner from '../components/PageBanner/PageBanner'
 import ScrollReveal from '../components/ScrollReveal/ScrollReveal'
+import { sendPaymentEmail } from '../utils/emailService'
+import { createPaymentOrder, generateOrderReference } from '../utils/paymentService'
 
 // Unsplash: secure payment / finance themed
 const BANNER_IMG =
@@ -73,6 +75,7 @@ export default function PayNowPage() {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
   const [openFaq, setOpenFaq] = useState(null)
+  const [submissionMessage, setSubmissionMessage] = useState('')
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -89,11 +92,88 @@ export default function PayNowPage() {
       setError('Please enter a valid email address.')
       return
     }
+    
     setSubmitting(true)
-    await new Promise((r) => setTimeout(r, 1200))
-    setSubmitting(false)
-    setSubmitted(true)
-    setForm(initialForm)
+    setError('')
+    setSubmissionMessage('')
+
+    try {
+      // If amount is provided, create payment order first
+      if (form.amount && parseFloat(form.amount) > 0) {
+        const orderReference = generateOrderReference()
+        
+        console.log('Creating payment order with reference:', orderReference)
+        
+        const paymentResult = await createPaymentOrder({
+          amount: form.amount,
+          customerEmail: form.email,
+          customerName: form.name,
+          description: `${form.serviceType} - ${form.name}`,
+          merchantOrderReference: orderReference,
+        })
+
+        console.log('Payment order result:', paymentResult)
+
+        if (!paymentResult.success) {
+          console.error('Payment order creation failed:', paymentResult.error)
+          setError('Failed to create payment order. Our team will contact you with payment details.')
+          setSubmitting(false)
+          return
+        }
+
+        // Store form data in localStorage for success page to send email
+        localStorage.setItem('pendingPaymentData', JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          serviceType: form.serviceType,
+          amount: form.amount,
+          notes: form.notes,
+          orderReference: orderReference,
+          timestamp: Date.now()
+        }))
+
+        // Redirect to payment gateway if link is available
+        if (paymentResult.paymentLink) {
+          console.log('Redirecting to payment gateway:', paymentResult.paymentLink)
+          // Small delay to ensure user sees the processing state
+          setTimeout(() => {
+            window.location.href = paymentResult.paymentLink
+          }, 500)
+          return
+        } else {
+          // Payment order created but no redirect link
+          console.warn('Payment order created but no payment link returned')
+          setSubmissionMessage('Payment order created! Our team will send you the payment link shortly.')
+        }
+      } else {
+        // No amount specified - send email immediately
+        const emailResult = await sendPaymentEmail({
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          serviceType: form.serviceType,
+          amount: form.amount,
+          notes: form.notes,
+        })
+
+        if (!emailResult.success) {
+          setError('Failed to send notification. Please try again.')
+          setSubmitting(false)
+          return
+        }
+
+        setSubmissionMessage('Request received! Our team will contact you within 24 hours to confirm payment details and next steps.')
+      }
+
+      setSubmitting(false)
+      setSubmitted(true)
+      setForm(initialForm)
+    } catch (err) {
+      console.error('Submission error:', err)
+      setError('An error occurred. Please try again or contact us directly.')
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -230,10 +310,13 @@ export default function PayNowPage() {
                     </div>
                     <h4 className="font-serif text-forest-deeper text-xl font-semibold mb-2">Request Received!</h4>
                     <p className="text-forest/60 text-[14px] max-w-xs leading-[1.7]">
-                      Thank you. Our team will contact you within 24 hours to confirm payment details and next steps.
+                      {submissionMessage || 'Thank you. Our team will contact you within 24 hours to confirm payment details and next steps.'}
                     </p>
                     <button
-                      onClick={() => setSubmitted(false)}
+                      onClick={() => {
+                        setSubmitted(false)
+                        setSubmissionMessage('')
+                      }}
                       className="mt-6 text-[11px] tracking-[2px] uppercase text-gold hover:text-gold-dark underline transition-colors duration-200"
                     >
                       Submit Another Request

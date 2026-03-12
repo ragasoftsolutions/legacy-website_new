@@ -5,6 +5,8 @@ import HomePage from './pages/HomePage'
 import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
 import PayNowPage from './pages/PayNowPage'
+import PaymentSuccessPage from './pages/PaymentSuccessPage'
+import PaymentCancelPage from './pages/PaymentCancelPage'
 import {
   DominicaCitizenshipPage,
   SaintKittsNevisCitizenshipPage,
@@ -22,6 +24,8 @@ export default function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/pay-now" element={<PayNowPage />} />
+        <Route path="/payment-success" element={<PaymentSuccessPage />} />
+        <Route path="/payment-cancel" element={<PaymentCancelPage />} />
         
         {/* Citizenship by Investment Routes */}
         <Route path="/citizenship/dominica" element={<DominicaCitizenshipPage />} />
