@@ -8,7 +8,7 @@ const ZEPTOMAIL_API_URL = import.meta.env.DEV
 const ZEPTOMAIL_API_KEY = import.meta.env.VITE_ZEPTOMAIL_API_KEY
 const EMAIL_FROM = import.meta.env.VITE_EMAIL_FROM || 'noreply@legacymigadv.com'
 const EMAIL_FROM_NAME = import.meta.env.VITE_EMAIL_FROM_NAME || 'Legacy Migration Advisory'
-const EMAIL_RECIPIENT = 'rahulvashisth052@gmail.com'
+const EMAIL_RECIPIENT = import.meta.env.VITE_EMAIL_TO || 'info@legacymigadv.com'
 
 /**
  * Send email using ZeptoMail REST API

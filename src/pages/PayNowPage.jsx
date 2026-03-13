@@ -214,7 +214,7 @@ export default function PayNowPage() {
       </section>
 
       {/* ── PAYMENT METHODS ── */}
-      <section className="bg-cream py-24 lg:py-32">
+      {/* <section className="bg-cream py-24 lg:py-32">
         <div className="max-w-[1320px] mx-auto px-6 lg:px-10">
 
           <ScrollReveal variant="fadeUp" className="text-center mb-16">
@@ -247,7 +247,7 @@ export default function PayNowPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ── PAYMENT REQUEST FORM + CONTACT ── */}
       <section className="bg-white py-24 lg:py-32">
