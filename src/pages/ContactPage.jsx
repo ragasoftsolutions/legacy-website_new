@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import PageBanner from '../components/PageBanner/PageBanner'
 import ScrollReveal from '../components/ScrollReveal/ScrollReveal'
+import { sendContactEmail } from '../utils/emailService'
 
 // Unsplash: modern Dubai business office / contact themed
 const BANNER_IMG =
@@ -91,12 +92,45 @@ export default function ContactPage() {
       setError('Please enter a valid email address.')
       return
     }
+    
     setSubmitting(true)
-    // Simulate async submit
-    await new Promise((r) => setTimeout(r, 1200))
-    setSubmitting(false)
-    setSubmitted(true)
-    setForm(initialForm)
+    setError('')
+
+    try {
+      // Send email using ZeptoMail
+      const result = await sendContactEmail({
+        fullName: form.fullName,
+        phone: form.phone,
+        alternatePhone: form.alternatePhone,
+        email: form.email,
+        country: form.country,
+        visaType: form.visaType,
+        nationality: form.nationality,
+        dob: form.dob,
+        passportNumber: form.passportNumber,
+        age: form.age,
+        education: form.education,
+        currentResidence: form.currentResidence,
+        currentOccupation: form.currentOccupation,
+        timeline: form.timeline,
+        workExperience: form.workExperience,
+        additionalComments: form.additionalComments,
+      })
+
+      if (!result.success) {
+        setError('Failed to send message. Please try again or contact us directly.')
+        setSubmitting(false)
+        return
+      }
+
+      setSubmitting(false)
+      setSubmitted(true)
+      setForm(initialForm)
+    } catch (err) {
+      console.error('Submission error:', err)
+      setError('An error occurred. Please try again or contact us directly.')
+      setSubmitting(false)
+    }
   }
 
   return (
