@@ -1,5 +1,28 @@
 # N-Genius Payment Gateway Setup
 
+## Production Setup Without Separate Backend
+
+You can run payments without a separate backend service by using Vercel serverless functions in this same project:
+
+- `api/payments/create-order.js`
+- `api/payments/order-status.js`
+
+The frontend now calls `/api/payments/*`, and these serverless functions call N-Genius securely with server-side environment variables.
+
+### Required Vercel Environment Variables
+
+Set these in your Vercel project settings:
+
+- `NGENIUS_API_KEY`
+- `NGENIUS_OUTLET_REF`
+- `NGENIUS_BASE_URL` (usually `https://api-gateway.ngenius-payments.com`)
+- `NGENIUS_CURRENCY` (for example `AED`)
+- `PAYMENT_SUCCESS_URL`
+- `PAYMENT_CANCEL_URL`
+- `VITE_NGENIUS_CURRENCY` (client-side display only)
+
+Important: do not use `VITE_` prefix for secret keys (`NGENIUS_API_KEY`, `NGENIUS_OUTLET_REF`). Any `VITE_` variable is exposed to the browser.
+
 ## Error: "Invalid redirect url"
 
 The N-Genius payment gateway requires redirect URLs to be **registered** in your merchant dashboard before they can be used.
@@ -20,7 +43,7 @@ Log in to your N-Genius merchant portal and register these URLs:
 
 ### 2. Update .env File
 
-The `.env` file has been updated with redirect URL variables:
+The `.env` / Vercel environment has redirect URL variables:
 
 ```env
 VITE_PAYMENT_SUCCESS_URL=http://localhost:5173/payment-success
