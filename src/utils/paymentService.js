@@ -2,10 +2,8 @@ import axios from 'axios'
 
 const NGENIUS_API_KEY = import.meta.env.VITE_NGENIUS_API_KEY
 const NGENIUS_OUTLET_REF = import.meta.env.VITE_NGENIUS_OUTLET_REF
-// Use proxy in development to avoid CORS issues
-const NGENIUS_BASE_URL = import.meta.env.DEV 
-  ? '/api/ngenius' 
-  : import.meta.env.VITE_NGENIUS_BASE_URL
+// Always use proxy (Vite locally, Vercel rewrites in production) to avoid CORS issues
+const NGENIUS_BASE_URL = '/api/ngenius'
 const NGENIUS_CURRENCY = import.meta.env.VITE_NGENIUS_CURRENCY
 // Redirect URLs - must be registered in N-Genius dashboard
 const PAYMENT_SUCCESS_URL = import.meta.env.VITE_PAYMENT_SUCCESS_URL || `${window.location.origin}/payment-success`

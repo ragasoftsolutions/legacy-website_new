@@ -1,10 +1,17 @@
 {
-    "rewrites": [
-      {
-        "source": "/:match*",
-        "destination": "/index.html"
-      }
-      
-    ]
-  }
+  "rewrites": [
+    {
+      "source": "/api/ngenius/:path*",
+      "destination": "https://api-gateway.ngenius-payments.com/:path*"
+    },
+    {
+      "source": "/api/zeptomail/:path*",
+      "destination": "https://api.zeptomail.in/:path*"
+    },
+    {
+      "source": "/:match*",
+      "destination": "/index.html"
+    }
+  ]
+}
   
