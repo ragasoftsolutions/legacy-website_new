@@ -1,10 +1,8 @@
 import axios from 'axios'
 
 // ZeptoMail Configuration
-// Use proxy in development to avoid CORS issues
-const ZEPTOMAIL_API_URL = import.meta.env.DEV 
-  ? '/api/zeptomail/v1.1/email' 
-  : import.meta.env.VITE_ZEPTOMAIL_API_URL || 'https://api.zeptomail.in/v1.1/email'
+// Always use proxy (Vite locally, Vercel rewrites in production) to avoid CORS issues
+const ZEPTOMAIL_API_URL = '/api/zeptomail/v1.1/email'
 const ZEPTOMAIL_API_KEY = import.meta.env.VITE_ZEPTOMAIL_API_KEY
 const EMAIL_FROM = import.meta.env.VITE_EMAIL_FROM || 'noreply@legacymigadv.com'
 const EMAIL_FROM_NAME = import.meta.env.VITE_EMAIL_FROM_NAME || 'Legacy Migration Advisory'
