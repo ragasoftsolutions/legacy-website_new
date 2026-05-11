@@ -344,7 +344,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── JOURNEY / TIMELINE ── */}
-      <section className="bg-cream py-24 lg:py-32">
+      {/* <section className="bg-cream py-24 lg:py-32">
         <div className="max-w-[1320px] mx-auto px-6 lg:px-10">
 
           <ScrollReveal variant="fadeUp" className="text-center mb-16">
@@ -355,7 +355,7 @@ export default function AboutPage() {
           </ScrollReveal>
 
           <div className="relative max-w-[860px] mx-auto">
-            {/* Central line */}
+          
             <div className="absolute left-1/2 -translate-x-px top-0 bottom-0 w-px bg-gold/20 hidden lg:block" />
 
             <div className="flex flex-col gap-12">
@@ -368,11 +368,11 @@ export default function AboutPage() {
                   viewport={{ once: true, amount: 0.3 }}
                   transition={{ duration: 0.6, delay: i * 0.1 }}
                 >
-                  {/* Year badge */}
+               
                   <div className="w-24 h-24 flex-shrink-0 flex items-center justify-center bg-forest-deeper border border-gold/30 relative z-10">
                     <span className="font-serif text-gold text-xl font-bold">{m.year}</span>
                   </div>
-                  {/* Event text */}
+               
                   <div className={`flex-1 bg-cream p-6 border-l-2 border-gold ${i % 2 !== 0 ? 'lg:border-l-0 lg:border-r-2 lg:text-right' : ''}`}>
                     <p className="text-forest/75 text-[15px] leading-[1.7]">{m.event}</p>
                   </div>
@@ -381,10 +381,10 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ── TEAM ── */}
-      <section className="bg-cream py-24 lg:py-32">
+      {/* <section className="bg-cream py-24 lg:py-32">
         <div className="max-w-[1320px] mx-auto px-6 lg:px-10">
 
           <ScrollReveal variant="fadeUp" className="text-center mb-16">
@@ -404,7 +404,7 @@ export default function AboutPage() {
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.6, delay: i * 0.15 }}
               >
-                {/* Image */}
+              
                 <div className="relative overflow-hidden aspect-[4/3]">
                   <div
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
@@ -412,7 +412,7 @@ export default function AboutPage() {
                   />
                   <div className="absolute inset-0 bg-forest-deeper/0 group-hover:bg-forest-deeper/30 transition-all duration-300" />
                 </div>
-                {/* Info */}
+              
                 <div className="p-6 border-t border-black/6">
                   <div className="w-8 h-0.5 bg-gold mb-3" />
                   <h3 className="font-serif text-forest-deeper text-lg font-semibold mb-1">{member.name}</h3>
@@ -422,7 +422,7 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ── CTA STRIP ── */}
       <section className="relative overflow-hidden py-24">
