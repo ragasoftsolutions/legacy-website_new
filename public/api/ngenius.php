@@ -1,131 +1,304 @@
 <?php
 /**
- * N-Genius Payment Gateway Proxy
- *
- * Proxies requests from frontend /api/ngenius/* to N-Genius API
- */
-
-// Error handling
-error_reporting(1);
+* N-Genius Payment Gateway Proxy
+* File: ngenius.php
+*/
+ 
+error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
-// Log for debugging
+ 
+/*
+|--------------------------------------------------------------------------
+| DEBUG MODE
+|--------------------------------------------------------------------------
+*/
+$debug = true;
 $logFile = __DIR__ . '/proxy_debug.log';
-$debug = false;
-
-if ($debug) {
-    file_put_contents($logFile, "==========\n" . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
-    file_put_contents($logFile, "URI: " . $_SERVER['REQUEST_URI'] . "\n", FILE_APPEND);
-    file_put_contents($logFile, "Method: " . $_SERVER['REQUEST_METHOD'] . "\n", FILE_APPEND);
+ 
+function writeLog($message)
+{
+    global $debug, $logFile;
+ 
+    if ($debug) {
+        file_put_contents(
+            $logFile,
+            "[" . date('Y-m-d H:i:s') . "] " . $message . PHP_EOL,
+            FILE_APPEND
+        );
+    }
 }
-
-// CORS headers
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type, Authorization, Accept');
-header('Content-Type: application/json; charset=utf-8');
-
-// Handle preflight
+ 
+writeLog("====================================");
+writeLog("REQUEST STARTED");
+ 
+/*
+|--------------------------------------------------------------------------
+| CORS HEADERS
+|--------------------------------------------------------------------------
+*/
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, Accept");
+header("Content-Type: application/json; charset=utf-8");
+ 
+/*
+|--------------------------------------------------------------------------
+| HANDLE OPTIONS REQUEST
+|--------------------------------------------------------------------------
+*/
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
-    exit(0);
+    exit;
 }
-
-// API Key - Replace with your actual key
+ 
+/*
+|--------------------------------------------------------------------------
+| API KEY
+|--------------------------------------------------------------------------
+| ONLY BASE64 ENCODED VALUE
+|--------------------------------------------------------------------------
+*/
 $apiKey = 'ZGFjOGUxMjUtNjIxYi00MGE0LTkzZGMtNjQxODY0ZWVjZmU1OjI0YTg5Njk3LTJjNzEtNGNmMi1iMTY5LTYyY2YzZjcwYzUzMw==';
-
-// Get the request path from REQUEST_URI
+ 
+/*
+|--------------------------------------------------------------------------
+| REQUEST URI
+|--------------------------------------------------------------------------
+*/
 $requestUri = $_SERVER['REQUEST_URI'];
+ 
+writeLog("REQUEST URI:");
+writeLog($requestUri);
+ 
 $path = parse_url($requestUri, PHP_URL_PATH);
-
-// Remove /api/ngenius prefix
+ 
+/*
+|--------------------------------------------------------------------------
+| REMOVE LOCAL PREFIX
+|--------------------------------------------------------------------------
+*/
 $path = str_replace('/api/ngenius', '', $path);
+ 
 if (empty($path)) {
     $path = '/';
 }
-
-// Build the N-Genius API URL
-$targetUrl = 'https://api-gateway.ngenius-payments.com' . $path;
-
-// Add query string
-$queryString = $_SERVER['QUERY_STRING'] ?? '';
-if (!empty($queryString)) {
-    $targetUrl .= '?' . $queryString;
+ 
+/*
+|--------------------------------------------------------------------------
+| SANDBOX / LIVE
+|--------------------------------------------------------------------------
+*/
+ 
+// SANDBOX
+// $baseUrl = 'https://api-gateway.sandbox.ngenius-payments.com';
+ 
+// LIVE
+$baseUrl = 'https://api-gateway.ngenius-payments.com';
+ 
+$targetUrl = $baseUrl . $path;
+ 
+/*
+|--------------------------------------------------------------------------
+| QUERY STRING
+|--------------------------------------------------------------------------
+*/
+if (!empty($_SERVER['QUERY_STRING'])) {
+    $targetUrl .= '?' . $_SERVER['QUERY_STRING'];
 }
-
-if ($debug) {
-    file_put_contents($logFile, "Target: " . $targetUrl . "\n", FILE_APPEND);
+ 
+writeLog("TARGET URL:");
+writeLog($targetUrl);
+ 
+/*
+|--------------------------------------------------------------------------
+| BUILD HEADERS
+|--------------------------------------------------------------------------
+*/
+$headers = [];
+ 
+/*
+|--------------------------------------------------------------------------
+| ACCESS TOKEN API
+|--------------------------------------------------------------------------
+*/
+if (strpos($path, '/identity/auth/access-token') !== false) {
+ 
+    writeLog("TOKEN API DETECTED");
+ 
+    $headers[] = 'Authorization: Basic ' . $apiKey;
+ 
+    $headers[] = 'Content-Type: application/vnd.ni-identity.v1+json';
+ 
+    $headers[] = 'Accept: application/vnd.ni-identity.v1+json';
+ 
+} else {
+ 
+    writeLog("PAYMENT API DETECTED");
+ 
+    /*
+    |--------------------------------------------------------------------------
+    | GET AUTHORIZATION HEADER
+    |--------------------------------------------------------------------------
+    */
+ 
+    $incomingAuth = '';
+ 
+    if (isset($_SERVER['HTTP_AUTHORIZATION'])) {
+ 
+        $incomingAuth = $_SERVER['HTTP_AUTHORIZATION'];
+ 
+    } elseif (isset($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])) {
+ 
+        $incomingAuth = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
+ 
+    } elseif (function_exists('getallheaders')) {
+ 
+        $allHeaders = getallheaders();
+ 
+        if (isset($allHeaders['Authorization'])) {
+            $incomingAuth = $allHeaders['Authorization'];
+        } elseif (isset($allHeaders['authorization'])) {
+            $incomingAuth = $allHeaders['authorization'];
+        }
+    }
+ 
+    /*
+    |--------------------------------------------------------------------------
+    | FORWARD AUTH HEADER
+    |--------------------------------------------------------------------------
+    */
+ 
+    if (!empty($incomingAuth)) {
+ 
+        $headers[] = 'Authorization: ' . $incomingAuth;
+ 
+        writeLog("AUTH HEADER FOUND:");
+        writeLog($incomingAuth);
+ 
+    } else {
+ 
+        writeLog("NO AUTH HEADER RECEIVED");
+    }
+ 
+    $headers[] = 'Content-Type: application/vnd.ni-payment.v2+json';
+ 
+    $headers[] = 'Accept: application/vnd.ni-payment.v2+json';
 }
-
-// Prepare headers
-$headers = [
-    'Authorization: Basic ' . $apiKey,
-    'Accept: application/vnd.ni-payment.v2+json',
-];
-
-// Get content type - check both ways
-$contentType = $_SERVER['CONTENT_TYPE'] ?? 'application/json';
-// Handle FormData content type
-if (strpos($contentType, 'application/json') === false && strpos($contentType, 'application/x-www-form-urlencoded') === false) {
-    $contentType = 'application/json';
-}
-$headers[] = 'Content-Type: ' . $contentType;
-
-// Handle POST/PUT/PATCH body
+ 
+writeLog("HEADERS:");
+writeLog(print_r($headers, true));
+ 
+/*
+|--------------------------------------------------------------------------
+| REQUEST BODY
+|--------------------------------------------------------------------------
+*/
 $body = null;
+ 
 if (in_array($_SERVER['REQUEST_METHOD'], ['POST', 'PUT', 'PATCH'])) {
+ 
     $body = file_get_contents('php://input');
-    if ($debug) {
-        file_put_contents($logFile, "Body: " . $body . "\n", FILE_APPEND);
+ 
+    writeLog("REQUEST BODY:");
+    writeLog($body);
+ 
+    /*
+    |--------------------------------------------------------------------------
+    | TOKEN API NEEDS EMPTY JSON
+    |--------------------------------------------------------------------------
+    */
+    if (
+        strpos($path, '/identity/auth/access-token') !== false
+&& empty($body)
+    ) {
+        $body = '{}';
     }
 }
-
-if ($debug) {
-    file_put_contents($logFile, "Headers: " . implode(", ", $headers) . "\n", FILE_APPEND);
-}
-
-// Make the request to N-Genius
+ 
+/*
+|--------------------------------------------------------------------------
+| CURL REQUEST
+|--------------------------------------------------------------------------
+*/
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $targetUrl);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
-curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-curl_setopt($ch, CURLOPT_MAXREDIRS, 5);
-
+ 
+curl_setopt_array($ch, [
+ 
+    CURLOPT_URL => $targetUrl,
+ 
+    CURLOPT_RETURNTRANSFER => true,
+ 
+    CURLOPT_HTTPHEADER => $headers,
+ 
+    CURLOPT_SSL_VERIFYPEER => true,
+ 
+    CURLOPT_SSL_VERIFYHOST => 2,
+ 
+    CURLOPT_TIMEOUT => 60,
+ 
+    CURLOPT_FOLLOWLOCATION => true,
+ 
+    CURLOPT_MAXREDIRS => 5,
+ 
+    CURLOPT_CUSTOMREQUEST => $_SERVER['REQUEST_METHOD'],
+]);
+ 
+/*
+|--------------------------------------------------------------------------
+| SEND BODY
+|--------------------------------------------------------------------------
+*/
 if (in_array($_SERVER['REQUEST_METHOD'], ['POST', 'PUT', 'PATCH'])) {
-    curl_setopt($ch, CURLOPT_POST, true);
+ 
     curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
-} elseif ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
 }
-
+ 
+/*
+|--------------------------------------------------------------------------
+| EXECUTE REQUEST
+|--------------------------------------------------------------------------
+*/
 $response = curl_exec($ch);
+ 
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-$error = curl_error($ch);
+ 
+$curlError = curl_error($ch);
+ 
 $curlInfo = curl_getinfo($ch);
-
-curl_close($ch);
-
-if ($debug) {
-    file_put_contents($logFile, "HTTP Code: " . $httpCode . "\n", FILE_APPEND);
-    file_put_contents($logFile, "Response: " . substr($response, 0, 500) . "\n", FILE_APPEND);
-    if ($error) {
-        file_put_contents($logFile, "Error: " . $error . "\n", FILE_APPEND);
-    }
+ 
+/*
+|--------------------------------------------------------------------------
+| DEBUG LOGS
+|--------------------------------------------------------------------------
+*/
+writeLog("HTTP CODE:");
+writeLog($httpCode);
+ 
+if ($curlError) {
+ 
+    writeLog("CURL ERROR:");
+    writeLog($curlError);
 }
-
-// Return the response
+ 
+writeLog("RESPONSE:");
+writeLog($response);
+ 
+/*
+|--------------------------------------------------------------------------
+| RETURN RESPONSE
+|--------------------------------------------------------------------------
+*/
 http_response_code($httpCode);
-
-if ($error) {
+ 
+if ($curlError) {
+ 
     echo json_encode([
         'success' => false,
-        'error' => $error,
+        'error' => $curlError,
         'httpCode' => $httpCode
     ]);
+ 
 } else {
+ 
     echo $response;
 }
