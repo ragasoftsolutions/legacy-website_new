@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-// ZeptoMail Configuration - Direct API call
-const ZEPTOMAIL_API_URL = 'https://api.zeptomail.in/v1.1/email'
+// ZeptoMail Configuration - Use proxy
+const ZEPTOMAIL_API_URL = '/api/zeptomail/v1.1/email'
 const ZEPTOMAIL_API_KEY = import.meta.env.VITE_ZEPTOMAIL_API_KEY
 const EMAIL_FROM = import.meta.env.VITE_EMAIL_FROM || 'noreply@legacymigadv.com'
 const EMAIL_FROM_NAME = import.meta.env.VITE_EMAIL_FROM_NAME || 'Legacy Migration Advisory'
