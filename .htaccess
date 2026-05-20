@@ -1,0 +1,37 @@
+# LiteSpeed / Apache Proxy Configuration for Legacy Migration Frontend
+
+RewriteEngine On
+RewriteBase /
+
+# Enable SymLinks if needed
+Options +FollowSymLinks -Indexes
+
+# === API Proxy Routes ===
+
+# Route /api/ngenius/* to PHP proxy
+# This forwards requests to api/ngenius.php in the document root
+RewriteCond %{REQUEST_URI} ^/api/ngenius [NC]
+RewriteRule ^api/ngenius/(.*)$ ngenius.php [L,QSA,PT]
+
+# Route /api/zeptomail/* to PHP proxy
+RewriteCond %{REQUEST_URI} ^/api/zeptomail [NC]
+RewriteRule ^api/zeptomail/(.*)$ zeptomail.php [L,QSA,PT]
+
+# === SPA Fallback ===
+# If the file doesn't exist, serve index.html (for Vue Router)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [L]
+
+# === Security Headers ===
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+# === PHP Settings (if needed) ===
+<IfModule mod_php.c>
+    php_value upload_max_filesize 10M
+    php_value post_max_size 10M
+    php_value max_execution_time 60
+</IfModule>

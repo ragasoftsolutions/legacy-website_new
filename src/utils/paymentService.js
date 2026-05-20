@@ -2,8 +2,8 @@ import axios from 'axios'
 
 const NGENIUS_API_KEY = import.meta.env.VITE_NGENIUS_API_KEY
 const NGENIUS_OUTLET_REF = import.meta.env.VITE_NGENIUS_OUTLET_REF
-// Direct API call to N-Genius
-const NGENIUS_BASE_URL = 'https://api-gateway.ngenius-payments.com'
+// Use proxy for LiteSpeed/Apache server
+const NGENIUS_BASE_URL = '/api/ngenius'
 const NGENIUS_CURRENCY = import.meta.env.VITE_NGENIUS_CURRENCY
 // Redirect URLs - must be registered in N-Genius dashboard
 const PAYMENT_SUCCESS_URL = import.meta.env.VITE_PAYMENT_SUCCESS_URL || `${window.location.origin}/payment-success`
