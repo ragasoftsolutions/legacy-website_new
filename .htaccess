@@ -9,13 +9,16 @@ Options +FollowSymLinks -Indexes
 # === API Proxy Routes ===
 
 # Route /api/ngenius/* to PHP proxy
-# This forwards requests to api/ngenius.php in the document root
 RewriteCond %{REQUEST_URI} ^/api/ngenius [NC]
-RewriteRule ^api/ngenius/(.*)$ ngenius.php [L,QSA,PT]
+RewriteRule ^api/ngenius/(.*)$ api/ngenius.php [L,QSA,PT]
 
 # Route /api/zeptomail/* to PHP proxy
 RewriteCond %{REQUEST_URI} ^/api/zeptomail [NC]
-RewriteRule ^api/zeptomail/(.*)$ zeptomail.php [L,QSA,PT]
+RewriteRule ^api/zeptomail/(.*)$ api/zeptomail.php [L,QSA,PT]
+
+# Route /api/test to test script
+RewriteCond %{REQUEST_URI} ^/api/test [NC]
+RewriteRule ^api/test$ api/test.php [L,QSA]
 
 # === SPA Fallback ===
 # If the file doesn't exist, serve index.html (for Vue Router)
