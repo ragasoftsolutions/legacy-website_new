@@ -1,30 +1,36 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import ScrollReveal from '../ScrollReveal/ScrollReveal'
 
 const countries = [
   {
     name: 'Antigua & Barbuda',
+    slug: 'antigua-barbuda',
     icon: 'https://legacymigadv.com/assets/img/cont/PC-antigua-icon-1.png',
     description: 'Fast-track citizenship with investment options starting from $100,000',
   },
   {
     name: 'Dominica',
+    slug: 'dominica',
     icon: 'https://legacymigadv.com/assets/img/cont/PC-dominica-icon-1.png',
     description: 'Most affordable citizenship program with strong passport benefits',
   },
   {
     name: 'Grenada',
+    slug: 'grenada',
     icon: 'https://legacymigadv.com/assets/img/cont/PC-grenada-icon-3.png',
     description: 'Only Caribbean CBI with visa-free access to China',
   },
   {
     name: 'Saint Lucia',
+    slug: 'saint-lucia',
     icon: 'https://legacymigadv.com/assets/img/cont/PC_Saint_Lucia_icon.png',
     description: 'Flexible investment options and excellent tax advantages',
   },
   {
     name: 'Malta',
+    slug: 'malta',
     icon: 'https://legacymigadv.com/assets/img/cont/PC-malta-icon-1.png',
     description: 'EU citizenship with global mobility and business opportunities',
   },
@@ -75,8 +81,9 @@ export default function CitizenshipPrograms() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-8">
           {countries.map((country, index) => (
             <ScrollReveal key={country.name} delay={index * 0.1}>
-              <motion.div
-                className="relative flex flex-col items-center group cursor-pointer"
+              <Link to={`/citizenship/${country.slug}`}>
+                <motion.div
+                  className="relative flex flex-col items-center group cursor-pointer"
                 onHoverStart={() => setHoveredIndex(index)}
                 onHoverEnd={() => setHoveredIndex(null)}
                 whileHover={{ scale: 1.05 }}
@@ -135,6 +142,7 @@ export default function CitizenshipPrograms() {
                   style={{ top: '0', bottom: 'auto', height: '7rem', margin: 'auto' }}
                 /> */}
               </motion.div>
+              </Link>
             </ScrollReveal>
           ))}
         </div>

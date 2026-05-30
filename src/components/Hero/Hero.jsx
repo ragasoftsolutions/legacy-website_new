@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const slides = [
@@ -116,12 +117,12 @@ export default function Hero() {
                   animate={i === current ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.6, delay: 0.7 }}
                 >
-                  <button className="inline-flex items-center gap-3 bg-gold/90 hover:bg-gold text-forest-deeper font-semibold text-[13px] tracking-wider px-8 py-4 rounded-full transition-all duration-300 group">
+                  <Link to="/contact" className="inline-flex items-center gap-3 bg-gold/90 hover:bg-gold text-forest-deeper font-semibold text-[13px] tracking-wider px-8 py-4 rounded-full transition-all duration-300 group">
                     {slide.cta}
                     <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                     </svg>
-                  </button>
+                  </Link>
                 </motion.div>
               </div>
             </div>

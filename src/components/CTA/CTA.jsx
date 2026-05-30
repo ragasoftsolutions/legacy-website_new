@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
 export default function CTA() {
@@ -49,10 +50,7 @@ export default function CTA() {
             Turning your migration dreams into reality.
           </motion.p>
 
-          <motion.a
-            href="mailto:info@legacymigadv.com"
-            className="btn-shine inline-flex items-center gap-3 bg-gold text-forest-deeper px-12 py-5 text-base font-bold tracking-wide transition-all duration-300 hover:bg-gold-light hover:scale-105 hover:shadow-2xl hover:shadow-gold/30 shadow-lg active:scale-95 group"
-            style={{ borderRadius: '50px' }}
+          <motion.div
             initial={{ opacity: 0, y: 30, scale: 0.9 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, amount: 0.3 }}
@@ -60,11 +58,17 @@ export default function CTA() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Lets Get Started
-            <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </motion.a>
+            <Link
+              to="/contact"
+              className="btn-shine inline-flex items-center gap-3 bg-gold text-forest-deeper px-12 py-5 text-base font-bold tracking-wide transition-all duration-300 hover:bg-gold-light hover:scale-105 hover:shadow-2xl hover:shadow-gold/30 shadow-lg active:scale-95 group"
+              style={{ borderRadius: '50px' }}
+            >
+              Lets Get Started
+              <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </motion.div>
 
         </div>
       </div>

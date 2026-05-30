@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useParams, Navigate, Link } from 'react-router-dom'
 import PageBanner from '../../components/PageBanner/PageBanner'
@@ -12,6 +12,11 @@ const BANNER_IMG = 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05
 export default function WorkVisaPage() {
   const { program } = useParams()
   const programData = getWorkVisaProgramBySlug(program)
+
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [program])
 
   // If program not found, redirect to home
   if (!programData) {
@@ -58,7 +63,7 @@ export default function WorkVisaPage() {
                 >
                   {title}
                 </motion.h2>
-                
+
                 <motion.div
                   className="w-16 h-0.5 bg-gold mb-8"
                   initial={{ scaleX: 0 }}
@@ -132,8 +137,8 @@ export default function WorkVisaPage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
                 >
-                  <img 
-                    src={flagImage} 
+                  <img
+                    src={flagImage}
                     alt={`${name} flag`}
                     className="w-full h-64 object-cover"
                     onError={(e) => {
@@ -158,7 +163,7 @@ export default function WorkVisaPage() {
                         'url(https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80)',
                     }}
                   />
-                  
+
                   {/* Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-b from-forest/70 via-forest/60 to-forest/80" />
 

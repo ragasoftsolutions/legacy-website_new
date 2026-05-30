@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 const services = [
   {
@@ -8,6 +9,7 @@ const services = [
     desc: 'The journey to permanent residency in Canada or Australia through skilled migration often comes with challenges, paperwork, and strict eligibility requirements that can feel overwhelming. We simplify every step, from skills assessment to final visa approval, ensuring nothing is left to chance.',
     img: '/service/1.png',
     tag: 'Canada · Australia · New Zealand',
+    link: '/contact',
   },
   {
     num: '02',
@@ -15,6 +17,7 @@ const services = [
     desc: "Through Residency by Investment, you can unlock a world of possibilities — gaining the right to live, work, and expand your future internationally. We guide you through every investment pathway, helping you select the right program and jurisdiction for your goals.",
     img: '/service/2.png',
     tag: 'Portugal · Greece · Spain · UAE',
+    link: '/contact',
   },
   {
     num: '03',
@@ -22,6 +25,7 @@ const services = [
     desc: 'No matter where you are in your journey — as a student or a working professional — we empower you to create a stable, successful future in your dream destination. Our specialists handle employer sponsorships, permit renewals, and compliance documentation end-to-end.',
     img: '/service/3.png',
     tag: 'UK · Ireland · Switzerland · Czechia',
+    link: '/work-visa/ireland-work-visa',
   },
   {
     num: '04',
@@ -29,6 +33,7 @@ const services = [
     desc: "Ready to explore Europe or discover new destinations around the world? Our visa experts are here to make your travel process easy and stress-free. From Schengen applications to long-stay tourist permits, we prepare complete, compelling documentation for every journey.",
     img: '/service/4.png',
     tag: 'Schengen · Europe · Worldwide',
+    link: '/contact',
   },
 ]
 
@@ -149,10 +154,10 @@ export default function Services() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.15 + 0.6 }}
                 >
-                  <a href="#contact" className="btn-gold-outline inline-flex">
+                  <Link to={svc.link} className="btn-gold-outline inline-flex">
                     <span>Send Enquiry</span>
                     <span>→</span>
-                  </a>
+                  </Link>
                 </motion.div>
               </motion.div>
             </motion.div>
