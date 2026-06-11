@@ -3,17 +3,17 @@ import { motion } from 'framer-motion'
 
 const testimonials = [
   {
-    name: 'James Whitaker',
+    name: 'Aarav Sharma',
     date: 'March 23, 2024',
     text: 'Professional, reliable, and efficient – Legacy Migration Advisory exceeded all my expectations. I wouldn\'t trust anyone else with my migration journey.',
-    initials: 'JW',
-    country: 'United Kingdom',
+    initials: 'AS',
+    country: 'India',
   },
   {
-    name: 'Sarah M. Johnson',
+    name: 'Sara Wadhwa',
     date: 'January 23, 2025',
     text: 'Legacy Migration Advisory made the entire visa process incredibly smooth. Their team was responsive, professional, and truly cared about my application success. Highly recommended!',
-    initials: 'SJ',
+    initials: 'SW',
     country: 'Canada',
   },
   {
