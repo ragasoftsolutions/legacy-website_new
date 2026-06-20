@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 const goals = [
   'Make the immigration process easy',
@@ -146,10 +147,10 @@ export default function About() {
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.6, delay: 0.5 }}
             >
-              <a href="#contact" className="btn-gold-outline">
+              <Link to="/about" className="btn-gold-outline">
                 <span>About Us</span>
                 <span className="transition-transform group-hover:translate-x-1">→</span>
-              </a>
+              </Link>
             </motion.div>
           </div>
         </div>

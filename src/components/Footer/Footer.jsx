@@ -27,10 +27,10 @@ const quickLinks = [
   { label: 'Pay Now', href: '/pay-now' },
 ]
 const immigrationLinks = [
-  'UK Skilled Immigration',
-  'Australia General Skilled Migration',
-  'Canada Express Entry Program',
-  'Poland Work Permits',
+  { label: 'UK Skilled Immigration', href: '/work-visa/uk-skilled-worker-visa' },
+  { label: 'Australia General Skilled Migration', href: '/residency/australia' },
+  { label: 'Greece Express Entry Program', href: '/residency/greece' },
+  { label: 'Ireland Work Visa', href: '/work-visa/ireland-work-visa' },
 ]
 
 export default function Footer() {
@@ -55,12 +55,19 @@ export default function Footer() {
             </p>
             {/* Social icons */}
             <div className="flex gap-3">
-              {[{ icon: Linkedin, label: 'LinkedIn' }, { icon: Facebook, label: 'Facebook' }, { icon: X, label: 'X (Twitter)' }, { icon: Instagram, label: 'Instagram' }].map((social, i) => {
+              {[
+                { icon: Linkedin, label: 'LinkedIn', href: '#' },
+                { icon: Facebook, label: 'Facebook', href: 'https://www.facebook.com/LegacyMigrationAdv/' },
+                { icon: X, label: 'X (Twitter)', href: '#' },
+                { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/legacymigrationadvisory/' },
+              ].map((social, i) => {
                 const Icon = social.icon;
                 return (
                   <motion.a
                     key={social.label}
-                    href="#"
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-9 h-9 border border-white/15 flex items-center justify-center text-white/40 hover:border-gold hover:text-gold transition-all duration-200"
                     aria-label={social.label}
                     initial={{ opacity: 0, scale: 0 }}
@@ -119,17 +126,20 @@ export default function Footer() {
             </h4>
             <div className="flex flex-col gap-2">
               {immigrationLinks.map((l, i) => (
-                <motion.a
-                  key={l}
-                  href="#"
-                  className="text-white/45 text-[12.5px] hover:text-gold hover:pl-2 transition-all duration-200"
+                <motion.div
+                  key={l.label}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: 0.4 + i * 0.1 }}
                 >
-                  {l}
-                </motion.a>
+                  <Link
+                    to={l.href}
+                    className="text-white/45 text-[12.5px] hover:text-gold hover:pl-2 transition-all duration-200"
+                  >
+                    {l.label}
+                  </Link>
+                </motion.div>
               ))}
             </div>
           </motion.div>

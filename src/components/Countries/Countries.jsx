@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 const countries = [
   {
@@ -7,42 +8,49 @@ const countries = [
     desc: 'EU Blue Card, Job Seeker Visa, Skilled Worker Immigration',
     flag: '🇩🇪',
     img: '/countries/Germany.png',
+    services: 'Skilled Immigration',
   },
   {
     name: 'Hungary',
     desc: 'Golden Visa Program, Residency Bond, Guest Investor Program',
     flag: '🇭🇺',
     img: '/countries/Hungary.png',
+    services: 'Residency By Investment',
   },
   {
     name: 'Ireland',
     desc: 'Critical Skills Employment Permit, Investor Programme, Start-Up Visa',
     flag: '🇮🇪',
     img: '/countries/Ireland.png',
+    services: 'Work Visa',
   },
   {
     name: 'Luxembourg',
     desc: 'Work Authorization, Investor Residence, EU Blue Card',
     flag: '🇱🇺',
     img: '/countries/Luxembourg.png',
+    services: 'Skilled Immigration',
   },
   {
     name: 'Netherlands',
     desc: 'Highly Skilled Migrant Visa, Dutch American Friendship Treaty, Start-Up Visa',
     flag: '🇳🇱',
     img: '/countries/Netherland.png',
+    services: 'Skilled Immigration',
   },
   {
     name: 'Slovakia',
     desc: 'EU Blue Card, Employment Residence, Business Immigration',
     flag: '🇸🇰',
     img: '/countries/Slovakia.png',
+    services: 'Skilled Immigration',
   },
   {
     name: 'Switzerland',
     desc: 'L Permit, B Permit, C Permit, Investor Programs',
     flag: '🇨🇭',
     img: '/countries/Switzerland.png',
+    services: 'Work Visa',
   },
 ]
 
@@ -155,10 +163,10 @@ export default function Countries() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.15 + 0.6 }}
                 >
-                  <a href="#contact" className="btn-gold-outline inline-flex">
+                  <Link to="/contact" className="btn-gold-outline inline-flex">
                     <span>Explore Pathways</span>
                     <span>→</span>
-                  </a>
+                  </Link>
                 </motion.div>
               </motion.div>
             </motion.div>
