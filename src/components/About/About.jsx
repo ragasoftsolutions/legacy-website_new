@@ -9,7 +9,6 @@ const goals = [
 ]
 
 const stats = [
-  { value: '10+', label: 'Years Experience' },
   { value: '500+', label: 'Successful Cases' },
   { value: '30+', label: 'Countries Covered' },
 ]
@@ -47,7 +46,7 @@ export default function About() {
 
             {/* Stats bar */}
             <motion.div 
-              className="absolute -bottom-8 left-8 right-8 bg-forest-deeper px-8 py-6 grid grid-cols-3 divide-x divide-white/10"
+              className="absolute -bottom-8 left-8 right-8 bg-forest-deeper px-8 py-6 grid grid-cols-2 divide-x divide-white/10"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
@@ -137,7 +136,7 @@ export default function About() {
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              With a team of experienced and knowledgeable immigration consultants in Dubai and Abu Dhabi,
+              With a team of experienced and knowledgeable immigration consultants in Dubai,
               we guide you step-by-step throughout your entire migration journey.
             </motion.p>
 
