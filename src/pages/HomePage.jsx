@@ -74,9 +74,7 @@ export default function HomePage() {
               </ScrollReveal>
             </main>
 
-            <ScrollReveal variant="fadeUp" delay={0.05}>
-              <Footer />
-            </ScrollReveal>
+           
           </motion.div>
         )}
       </AnimatePresence>

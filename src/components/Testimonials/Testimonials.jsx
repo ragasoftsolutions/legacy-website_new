@@ -10,11 +10,11 @@ const testimonials = [
     country: 'India',
   },
   {
-    name: 'Sara Wadhwa',
+    name: 'Priya Gupta',
     date: 'January 23, 2025',
     text: 'Legacy Migration Advisory made the entire visa process incredibly smooth. Their team was responsive, professional, and truly cared about my application success. Highly recommended!',
-    initials: 'SW',
-    country: 'Canada',
+    initials: 'PG',
+    country: 'India',
   },
   {
     name: 'Ahmed Al Mansoori',
