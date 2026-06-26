@@ -13,8 +13,7 @@ const MISSION_IMG =
   'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80'
 
 const stats = [
-  { value: '10+', label: 'Years of Experience' },
-  { value: '500+', label: 'Successful Cases' },
+  { value: '100+', label: 'Successful Cases' },
   { value: '30+', label: 'Countries Covered' },
   { value: '98%', label: 'Client Satisfaction' },
 ]
@@ -111,17 +110,6 @@ export default function AboutPage() {
                   className="absolute border border-gold/40 pointer-events-none"
                   style={{ inset: '-16px 16px 16px -16px' }}
                 />
-                {/* Floating badge */}
-                <motion.div
-                  className="absolute -bottom-6 -right-4 lg:-right-8 bg-gold px-7 py-5 shadow-xl"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                >
-                  <div className="font-serif text-forest-deeper text-4xl font-bold leading-none">10+</div>
-                  <div className="text-[10px] tracking-[2px] text-forest-deeper/80 uppercase mt-1">Years Experience</div>
-                </motion.div>
               </div>
             </ScrollReveal>
 
@@ -168,7 +156,7 @@ export default function AboutPage() {
       {/* ── STATS STRIP ── */}
       <section className="bg-forest-deeper py-16">
         <div className="max-w-[1320px] mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-white/10">
+          <div className="grid grid-cols-2 lg:grid-cols-3 divide-x divide-white/10">
             {stats.map((s, i) => (
               <motion.div
                 key={s.label}
