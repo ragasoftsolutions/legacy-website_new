@@ -9,7 +9,7 @@ const goals = [
 ]
 
 const stats = [
-  { value: '500+', label: 'Successful Cases' },
+  { value: '100+', label: 'Successful Cases' },
   { value: '30+', label: 'Countries Covered' },
 ]
 
